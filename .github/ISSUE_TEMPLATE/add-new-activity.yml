@@ -73,7 +73,7 @@ body:
     attributes:
       label: Start Time
       description: What time does the activity start?
-      placeholder: "e.g., 15:30 (3:30 PM) - Use 24-hour format"
+      placeholder: "e.g., 15:30 (3:30 PM) - Use 24-hour format (HH:MM)"
     validations:
       required: true
 
@@ -82,7 +82,7 @@ body:
     attributes:
       label: End Time
       description: What time does the activity end?
-      placeholder: "e.g., 17:00 (5:00 PM) - Use 24-hour format"
+      placeholder: "e.g., 17:00 (5:00 PM) - Use 24-hour format (HH:MM)"
     validations:
       required: true
 
