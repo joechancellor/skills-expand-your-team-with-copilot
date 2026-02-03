@@ -1,0 +1,92 @@
+name: Modify Activity Details
+description: Request to change details of an existing activity
+title: "[Activity]: Modify "
+labels: ["enhancement", "activity"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Modify an Existing Activity
+        Use this form to request changes to an existing extracurricular activity.
+        
+        Please specify which activity to modify and what changes are needed.
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Activity Name
+      description: Which activity needs to be modified?
+      placeholder: "e.g., Chess Club, Drama Club, Robotics Team"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: changes-needed
+    attributes:
+      label: What needs to be changed?
+      description: Select all fields that need to be modified
+      options:
+        - label: Activity name
+        - label: Description
+        - label: Teacher/Advisor
+        - label: Meeting days
+        - label: Start time
+        - label: End time
+        - label: Location
+        - label: Difficulty level
+        - label: Maximum participants
+        - label: Category
+
+  - type: textarea
+    id: new-values
+    attributes:
+      label: New Values
+      description: |
+        Provide the new values for the fields you want to change.
+        Format: Field name: New value
+      placeholder: |
+        Description: Updated description text here
+        Start time: 16:00
+        Location: Room 305
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for Change
+      description: Why are these changes needed?
+      placeholder: "Schedule conflict, room availability, increased student interest, etc."
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 📋 Implementation Notes for Copilot Agent
+        
+        **Clear Problem:** Modify specified fields of an existing activity in the database.
+        
+        **Acceptance Criteria:**
+        - Specified activity is found in the database
+        - Only the requested fields are modified
+        - Changes are reflected on the website immediately
+        - Activity still appears in correct filters after changes
+        - No other activities are affected
+        
+        **Implementation Hints:**
+        - Locate the activity in `src/backend/database.py`
+        - Update only the specified fields
+        - Ensure data format remains consistent (e.g., time format, days array)
+        - If changing activity name, update the _id field
+        - Verify filtering still works correctly after changes
+        
+        **Technical Context:**
+        - Database: MongoDB-like in-memory database (TinyDB)
+        - Backend: FastAPI (Python)
+        - Activities are stored in `activities_collection`
+        - Activity name serves as the unique identifier

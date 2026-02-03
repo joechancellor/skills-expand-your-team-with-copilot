@@ -1,0 +1,133 @@
+name: Feature Request
+description: Suggest a new feature or capability for the website
+title: "[Feature]: "
+labels: ["enhancement"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Request a New Feature
+        Have an idea for a new capability? Tell us about it!
+        
+        Describe what you'd like the website to be able to do.
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: What new feature do you want?
+      description: Describe the new capability in simple terms
+      placeholder: "I want students to be able to see which activities their friends have signed up for..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Why do you need this?
+      description: Explain the problem this would solve or the benefit it would provide
+      placeholder: "This would help students find activities where they already know people, making them more likely to join..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-it-works
+    attributes:
+      label: How should it work?
+      description: Describe how someone would use this feature
+      placeholder: |
+        1. Student logs in
+        2. Sees their friend list
+        3. Can click 'Show friend activities'
+        4. Activities show which friends are signed up
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user-type
+    attributes:
+      label: Who would use this feature?
+      description: Which type of user would benefit?
+      options:
+        - Students
+        - Teachers
+        - Both students and teachers
+        - School administrators
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How important is this?
+      options:
+        - "Must have - We really need this"
+        - "Should have - Would be very useful"
+        - "Nice to have - Would be a nice improvement"
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples or References
+      description: Are there other websites or systems that do something similar?
+      placeholder: "The school cafeteria menu system shows popularity scores..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Are there other ways to achieve the same goal?
+      placeholder: "We could also just add a comment section where students can talk about activities..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 📋 Implementation Notes for Copilot Agent
+        
+        **Clear Problem:** Implement the requested feature with appropriate functionality.
+        
+        **Acceptance Criteria:**
+        - Feature works as described in the use case
+        - Feature is accessible to the appropriate user types
+        - UI is intuitive and consistent with existing design
+        - Feature doesn't break existing functionality
+        - Code follows existing patterns and conventions
+        - Feature is tested and working properly
+        
+        **Implementation Hints:**
+        - Analyze feasibility with current architecture
+        - Design database schema changes if needed
+        - Create backend API endpoints if needed
+        - Update frontend UI and JavaScript
+        - Keep changes simple and maintainable
+        - Follow existing code patterns
+        - Test all user flows thoroughly
+        
+        **Technical Context:**
+        - Backend: FastAPI (Python)
+        - Frontend: Vanilla JavaScript, HTML, CSS
+        - Database: In-memory TinyDB
+        - No new frameworks should be added
+        - Keep code simple for non-technical maintainers
+        
+        **Limitations:**
+        - Solution must use only HTML, CSS, JavaScript, and Python
+        - No additional services or tools
+        - Must be easy to maintain by non-technical staff
+        - Consider data persistence limitations (in-memory database)
+        
+        **Suggested Approach:**
+        1. Review requirements and assess complexity
+        2. Design the solution approach
+        3. Implement backend changes first
+        4. Implement frontend changes
+        5. Test thoroughly
+        6. Document any new usage patterns

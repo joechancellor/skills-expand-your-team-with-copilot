@@ -1,0 +1,97 @@
+name: Remove Activity
+description: Request to remove an activity from the system
+title: "[Activity]: Remove "
+labels: ["activity", "removal"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Remove an Activity
+        Use this form to request removal of an extracurricular activity that is no longer available.
+        
+        ⚠️ **Warning:** This will permanently remove the activity and all associated data.
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Activity Name
+      description: Which activity should be removed?
+      placeholder: "e.g., Chess Club, Drama Club"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for Removal
+      description: Why is this activity being removed?
+      placeholder: "Activity cancelled, no longer offered, insufficient enrollment, etc."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      description: Please confirm you understand the impact
+      options:
+        - label: I understand this will remove the activity from the website
+          required: true
+        - label: I understand this will remove all student signups for this activity
+          required: true
+        - label: I have notified any students currently signed up for this activity
+          required: false
+
+  - type: input
+    id: effective-date
+    attributes:
+      label: When should this take effect?
+      description: Date when the activity should be removed (leave blank for immediate)
+      placeholder: "e.g., 2024-02-01 or 'immediately'"
+    validations:
+      required: false
+
+  - type: textarea
+    id: replacement-activity
+    attributes:
+      label: Replacement Activity (if any)
+      description: Is there a replacement activity students should consider instead?
+      placeholder: "Students may want to join the Robotics Club instead..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 📋 Implementation Notes for Copilot Agent
+        
+        **Clear Problem:** Remove the specified activity from the database and website.
+        
+        **Acceptance Criteria:**
+        - Activity is removed from the database
+        - Activity no longer appears on the website
+        - Activity cannot be signed up for
+        - No broken references to the removed activity
+        - No errors occur when browsing activities
+        
+        **Implementation Hints:**
+        - Locate the activity in `src/backend/database.py`
+        - Remove the activity data from the initial dataset
+        - Verify no hardcoded references exist elsewhere
+        - Test that the website still loads correctly
+        - Check that filtering still works properly
+        - Ensure no frontend JavaScript relies on this specific activity
+        
+        **Technical Context:**
+        - Database: MongoDB-like in-memory database (TinyDB)
+        - Activities stored in `activities_collection`
+        - Initial data loaded from `src/backend/database.py`
+        - Activity removal is permanent (in-memory only, resets on restart)
+        
+        **Related Information:**
+        - Consider if this activity is referenced in documentation
+        - Check if activity is used in any examples or tests
+        - Verify category filters still work if it's the only activity in a category

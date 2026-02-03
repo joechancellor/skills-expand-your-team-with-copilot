@@ -1,0 +1,140 @@
+name: Bug Report
+description: Report a problem or error with the website
+title: "[Bug]: "
+labels: ["bug"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Report a Bug
+        Something not working correctly? Let us know so we can fix it!
+        
+        Describe what's broken and how to see the problem.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What's Wrong?
+      description: Describe the problem in simple terms
+      placeholder: "When I try to sign up for Drama Club, nothing happens..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: How to See the Problem
+      description: What steps do you take to see this issue?
+      placeholder: |
+        1. Go to the website
+        2. Click on 'Drama Club'
+        3. Click 'Sign Up'
+        4. Enter email address
+        5. Nothing happens when I click Register
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What Should Happen?
+      description: What did you expect to happen instead?
+      placeholder: "The student should be registered for the activity and see a confirmation message"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How serious is this?
+      description: How much does this problem affect using the website?
+      options:
+        - "Critical - Website doesn't work at all"
+        - "High - Important feature is broken"
+        - "Medium - Feature works but has issues"
+        - "Low - Minor visual or text issue"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this happen?
+      options:
+        - Every time
+        - Sometimes
+        - Rarely
+        - Only happened once
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: What device are you using?
+      options:
+        - Desktop computer
+        - Laptop
+        - Tablet
+        - Mobile phone
+    validations:
+      required: false
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Which web browser?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Anything else that might help? (Error messages, screenshots, etc.)
+      placeholder: "I saw an error message that said..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 📋 Implementation Notes for Copilot Agent
+        
+        **Clear Problem:** Fix the reported bug to restore proper functionality.
+        
+        **Acceptance Criteria:**
+        - Bug can be reproduced following the provided steps
+        - Root cause is identified
+        - Fix is implemented with minimal code changes
+        - Bug no longer occurs after fix
+        - No new bugs are introduced
+        - Similar issues elsewhere are also fixed
+        
+        **Implementation Hints:**
+        - Start by reproducing the bug locally
+        - Check browser console for JavaScript errors
+        - Check FastAPI logs for backend errors
+        - Look for related code that might have the same issue
+        - Add defensive coding to prevent similar issues
+        - Test the fix thoroughly before committing
+        
+        **Technical Context:**
+        - Backend: FastAPI (Python) in `src/backend/`
+        - Frontend: Vanilla JavaScript in `src/static/app.js`
+        - Database: In-memory TinyDB in `src/backend/database.py`
+        - Check both frontend and backend for the issue
+        
+        **Limitations:**
+        - Make minimal changes - only fix the specific bug
+        - Don't refactor unrelated code
+        - Maintain existing code style
