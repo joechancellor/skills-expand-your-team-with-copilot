@@ -1038,4 +1038,129 @@ document.addEventListener("DOMContentLoaded", () => {
   checkAuthentication();
   initializeFilters();
   fetchActivities();
+  
+  // Initialize Git branch animation
+  initGitBranchAnimation();
 });
+
+// Git Branch Animation
+function initGitBranchAnimation() {
+  const svg = document.getElementById('git-branches');
+  if (!svg) return;
+  
+  const branches = [
+    { x1: 10, y1: 10, x2: 200, y2: 150, delay: 0 },
+    { x1: 200, y1: 150, x2: 400, y2: 100, delay: 2 },
+    { x1: 400, y1: 100, x2: 600, y2: 200, delay: 4 },
+    { x1: 100, y1: 300, x2: 300, y2: 250, delay: 1 },
+    { x1: 300, y1: 250, x2: 500, y2: 350, delay: 3 },
+    { x1: 70, y1: 500, x2: 250, y2: 450, delay: 1.5 },
+    { x1: 250, y1: 450, x2: 450, y2: 550, delay: 3.5 },
+    { x1: 450, y1: 550, x2: 650, y2: 500, delay: 5.5 },
+  ];
+  
+  branches.forEach((branch, index) => {
+    // Create path for branch line
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const midX = (branch.x1 + branch.x2) / 2;
+    const midY = (branch.y1 + branch.y2) / 2;
+    const d = `M ${branch.x1} ${branch.y1} Q ${midX} ${midY - 50} ${branch.x2} ${branch.y2}`;
+    
+    path.setAttribute('d', d);
+    path.setAttribute('class', 'branch-line');
+    path.style.animationDelay = `${branch.delay}s`;
+    svg.appendChild(path);
+    
+    // Create start node
+    const startNode = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    startNode.setAttribute('cx', branch.x1);
+    startNode.setAttribute('cy', branch.y1);
+    startNode.setAttribute('r', '4');
+    startNode.setAttribute('class', 'branch-node');
+    startNode.style.animationDelay = `${branch.delay}s`;
+    svg.appendChild(startNode);
+    
+    // Create end node
+    const endNode = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    endNode.setAttribute('cx', branch.x2);
+    endNode.setAttribute('cy', branch.y2);
+    endNode.setAttribute('r', '4');
+    endNode.setAttribute('class', 'branch-node');
+    endNode.style.animationDelay = `${branch.delay + 0.5}s`;
+    svg.appendChild(endNode);
+  });
+  
+  // Add more branches dynamically for larger screens
+  function addMoreBranches() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    if (width > 700) {
+      const extraBranches = [
+        { x1: width - 200, y1: 100, x2: width - 50, y2: 200, delay: 2.5 },
+        { x1: width - 300, y1: 300, x2: width - 100, y2: 400, delay: 4.5 },
+      ];
+      
+      extraBranches.forEach((branch) => {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const midX = (branch.x1 + branch.x2) / 2;
+        const midY = (branch.y1 + branch.y2) / 2;
+        const d = `M ${branch.x1} ${branch.y1} Q ${midX} ${midY - 50} ${branch.x2} ${branch.y2}`;
+        
+        path.setAttribute('d', d);
+        path.setAttribute('class', 'branch-line');
+        path.style.animationDelay = `${branch.delay}s`;
+        svg.appendChild(path);
+        
+        const startNode = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        startNode.setAttribute('cx', branch.x1);
+        startNode.setAttribute('cy', branch.y1);
+        startNode.setAttribute('r', '4');
+        startNode.setAttribute('class', 'branch-node');
+        startNode.style.animationDelay = `${branch.delay}s`;
+        svg.appendChild(startNode);
+        
+        const endNode = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        endNode.setAttribute('cx', branch.x2);
+        endNode.setAttribute('cy', branch.y2);
+        endNode.setAttribute('r', '4');
+        endNode.setAttribute('class', 'branch-node');
+        endNode.style.animationDelay = `${branch.delay + 0.5}s`;
+        svg.appendChild(endNode);
+      });
+    }
+  }
+  
+  addMoreBranches();
+  window.addEventListener('resize', () => {
+    svg.innerHTML = '';
+    branches.forEach((branch, index) => {
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const midX = (branch.x1 + branch.x2) / 2;
+      const midY = (branch.y1 + branch.y2) / 2;
+      const d = `M ${branch.x1} ${branch.y1} Q ${midX} ${midY - 50} ${branch.x2} ${branch.y2}`;
+      
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'branch-line');
+      path.style.animationDelay = `${branch.delay}s`;
+      svg.appendChild(path);
+      
+      const startNode = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      startNode.setAttribute('cx', branch.x1);
+      startNode.setAttribute('cy', branch.y1);
+      startNode.setAttribute('r', '4');
+      startNode.setAttribute('class', 'branch-node');
+      startNode.style.animationDelay = `${branch.delay}s`;
+      svg.appendChild(startNode);
+      
+      const endNode = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      endNode.setAttribute('cx', branch.x2);
+      endNode.setAttribute('cy', branch.y2);
+      endNode.setAttribute('r', '4');
+      endNode.setAttribute('class', 'branch-node');
+      endNode.style.animationDelay = `${branch.delay + 0.5}s`;
+      svg.appendChild(endNode);
+    });
+    addMoreBranches();
+  });
+}
