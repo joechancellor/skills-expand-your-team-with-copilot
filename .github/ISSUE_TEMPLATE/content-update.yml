@@ -1,0 +1,118 @@
+name: Content Update
+description: Request changes to text, messages, or informational content
+title: "[Content]: "
+labels: ["content", "documentation"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Update Website Content
+        Need to change text, messages, or other written content on the website?
+        
+        Tell us what needs to be updated and what it should say instead.
+
+  - type: dropdown
+    id: content-location
+    attributes:
+      label: Where is this content?
+      description: Which part of the website has the content to change?
+      options:
+        - Page title or header
+        - Activity descriptions
+        - Button text
+        - Form labels
+        - Error messages
+        - Success messages
+        - Help text or instructions
+        - Footer
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-content
+    attributes:
+      label: Current Content
+      description: What does it say now? (Copy and paste the exact text)
+      placeholder: "Register for this activity"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: new-content
+    attributes:
+      label: New Content
+      description: What should it say instead? (Provide the exact text you want)
+      placeholder: "Sign Up for This Activity"
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for Change
+      description: Why does this content need to be updated?
+      placeholder: "The current wording is confusing to students..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope of Change
+      description: Should this change apply to multiple places?
+      options:
+        - label: Only change this specific instance
+        - label: Change all similar instances throughout the website
+
+  - type: textarea
+    id: additional-changes
+    attributes:
+      label: Related Content Changes
+      description: Are there other related text changes needed at the same time?
+      placeholder: "Also change 'Student Email' to 'Your School Email' in the same form"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 📋 Implementation Notes for Copilot Agent
+        
+        **Clear Problem:** Update specified text content to improve clarity, accuracy, or messaging.
+        
+        **Acceptance Criteria:**
+        - Old content is replaced with new content
+        - Change appears in the correct location(s)
+        - If scope indicates multiple places, all instances are updated
+        - Text formatting and styling remain intact
+        - No typos or formatting errors in new content
+        - Related changes are also made if specified
+        
+        **Implementation Hints:**
+        - Search for the current content across all files
+        - For HTML content: Check `src/static/index.html`
+        - For JavaScript messages: Check `src/static/app.js`
+        - For Python error messages: Check `src/backend/routers/*.py`
+        - For documentation: Check `docs/` directory and README files
+        - Use exact text replacement to avoid breaking functionality
+        - Preview changes in browser to verify appearance
+        
+        **Technical Context:**
+        - Frontend text: `src/static/index.html` and `src/static/app.js`
+        - Backend messages: `src/backend/routers/` Python files
+        - Documentation: `docs/` and various README.md files
+        - Ensure proper HTML encoding for special characters
+        - Maintain existing text formatting (bold, links, etc.)
+        
+        **Limitations:**
+        - Only change the specified text
+        - Don't modify functionality or structure
+        - Keep existing formatting and styling
+        - Be careful with text used in code logic (exact matches)

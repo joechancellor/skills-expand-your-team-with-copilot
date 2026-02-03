@@ -1,0 +1,127 @@
+name: UI or Design Change
+description: Request changes to the website appearance or layout
+title: "[UI]: "
+labels: ["enhancement", "design"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Request a UI or Design Change
+        Use this form to request changes to how the website looks or is organized.
+        
+        Describe the visual or layout changes you'd like to see.
+
+  - type: dropdown
+    id: change-area
+    attributes:
+      label: Which part of the website?
+      description: Where should the change be made?
+      options:
+        - Homepage / Activity List
+        - Header / Navigation
+        - Filters sidebar
+        - Activity cards
+        - Registration modal
+        - Login modal
+        - Colors / Theme
+        - Footer
+        - Overall layout
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change-type
+    attributes:
+      label: Type of Change
+      description: What kind of change are you requesting?
+      options:
+        - Color scheme change
+        - Layout rearrangement
+        - Add new visual element
+        - Remove existing element
+        - Text size or font change
+        - Spacing or alignment
+        - Button or form styling
+        - Animation or transition
+        - Other styling change
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-state
+    attributes:
+      label: Current State
+      description: Describe how it looks now
+      placeholder: "The activity cards currently have a blue background and white text..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired-state
+    attributes:
+      label: Desired State
+      description: Describe how you want it to look
+      placeholder: "The activity cards should have a white background with dark gray text..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for Change
+      description: Why is this change needed?
+      placeholder: "Better readability, match school colors, improve accessibility, etc."
+    validations:
+      required: true
+
+  - type: input
+    id: color-codes
+    attributes:
+      label: Specific Colors (if applicable)
+      description: If you have specific color codes, provide them here
+      placeholder: "e.g., School blue: #003366, School gold: #FFD700"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: responsive
+    attributes:
+      label: Device Considerations
+      description: Should this change apply to all devices?
+      options:
+        - label: Desktop computers
+        - label: Tablets
+        - label: Mobile phones
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 📋 Implementation Notes for Copilot Agent
+        
+        **Clear Problem:** Update the website's visual appearance or layout as specified.
+        
+        **Acceptance Criteria:**
+        - Changes are made to the appropriate CSS file
+        - Design change is visible on the website
+        - Website remains usable and readable
+        - Changes work on all specified devices (responsive)
+        - No functionality is broken by the styling changes
+        - Colors maintain sufficient contrast for accessibility
+        
+        **Implementation Hints:**
+        - All styles are in `src/static/styles.css`
+        - HTML structure is in `src/static/index.html`
+        - Consider existing design patterns and consistency
+        - Test changes in browser (take screenshot to verify)
+        - Ensure changes don't break responsive design
+        - Check color contrast ratios for accessibility
+        
+        **Technical Context:**
+        - Frontend: Vanilla HTML, CSS, JavaScript
+        - No CSS frameworks (plain CSS only)
+        - Responsive design uses CSS media queries
+        - Dark mode is supported via CSS custom properties

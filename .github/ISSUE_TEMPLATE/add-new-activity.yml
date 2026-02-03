@@ -1,0 +1,155 @@
+name: Add New Activity
+description: Request to add a new extracurricular activity to the system
+title: "[Activity]: Add new activity - "
+labels: ["enhancement", "activity"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add a New Extracurricular Activity
+        Use this form to request a new activity be added to the Mergington High School Activities website.
+        
+        Please fill out all required fields so that the changes can be implemented quickly and accurately.
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Activity Name
+      description: What is the name of the new activity?
+      placeholder: "e.g., Chess Club, Drama Club, Robotics Team"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category does this activity belong to?
+      options:
+        - Sports
+        - Arts
+        - Academic
+        - Community
+        - Technology
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Activity Description
+      description: Provide a brief description of the activity (2-3 sentences)
+      placeholder: "This activity helps students develop..."
+    validations:
+      required: true
+
+  - type: input
+    id: teacher-name
+    attributes:
+      label: Teacher/Advisor Name
+      description: Who will be the teacher advisor for this activity?
+      placeholder: "e.g., Mr. Smith, Ms. Johnson"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: meeting-days
+    attributes:
+      label: Meeting Days
+      description: Which days does this activity meet? (Select all that apply)
+      options:
+        - label: Monday
+        - label: Tuesday
+        - label: Wednesday
+        - label: Thursday
+        - label: Friday
+        - label: Saturday
+        - label: Sunday
+
+  - type: input
+    id: start-time
+    attributes:
+      label: Start Time
+      description: What time does the activity start?
+      placeholder: "e.g., 15:30 (3:30 PM) - Use 24-hour format"
+    validations:
+      required: true
+
+  - type: input
+    id: end-time
+    attributes:
+      label: End Time
+      description: What time does the activity end?
+      placeholder: "e.g., 17:00 (5:00 PM) - Use 24-hour format"
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: Where does the activity meet?
+      placeholder: "e.g., Room 203, Gymnasium, Art Studio"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: Difficulty Level
+      description: What skill level is required for this activity?
+      options:
+        - "All Levels (no experience needed)"
+        - Beginner
+        - Intermediate
+        - Advanced
+    validations:
+      required: true
+
+  - type: input
+    id: max-participants
+    attributes:
+      label: Maximum Participants
+      description: What is the maximum number of students that can join?
+      placeholder: "e.g., 20"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other important details about this activity?
+      placeholder: "Special equipment needed, prerequisites, costs, etc."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 📋 Implementation Notes for Copilot Agent
+        
+        **Clear Problem:** Add a new extracurricular activity to the database and ensure it appears on the website.
+        
+        **Acceptance Criteria:**
+        - Activity is added to the database with all provided information
+        - Activity appears in the correct category on the website
+        - Activity can be filtered by day, time, and difficulty level
+        - Students can sign up for the activity
+        - All activity details display correctly on the frontend
+        
+        **Implementation Hints:**
+        - Update `src/backend/database.py` to include the new activity in the initial data
+        - Ensure the activity data structure matches existing activities
+        - Activity name should be used as the unique identifier (_id)
+        - Schedule details should include days array, start_time, and end_time
+        - Test that filtering works correctly for the new activity
+        
+        **Technical Context:**
+        - Database: MongoDB-like in-memory database (TinyDB)
+        - Backend: FastAPI (Python)
+        - Frontend: Vanilla JavaScript, HTML, CSS
+        - No additional frameworks or libraries should be added
