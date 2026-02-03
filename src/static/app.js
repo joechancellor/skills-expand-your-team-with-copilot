@@ -27,9 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Dark mode elements
   const darkModeToggle = document.getElementById("dark-mode-toggle");
-  const themeIcon = darkModeToggle.querySelector(".theme-icon");
-  const themeText = darkModeToggle.querySelector("span:last-child");
-
+  
   // Dark mode functionality
   function initializeDarkMode() {
     // Check for saved dark mode preference
@@ -42,6 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateDarkModeButton(isDark) {
+    if (!darkModeToggle) return;
+    
+    const themeIcon = darkModeToggle.querySelector(".theme-icon");
+    const themeText = darkModeToggle.querySelector("span:nth-child(2)");
+    
     if (isDark) {
       themeIcon.textContent = "☀️";
       themeText.textContent = "Light Mode";
@@ -65,7 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Event listener for dark mode toggle
-  darkModeToggle.addEventListener("click", toggleDarkMode);
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener("click", toggleDarkMode);
+  }
 
   // Initialize dark mode on page load
   initializeDarkMode();
