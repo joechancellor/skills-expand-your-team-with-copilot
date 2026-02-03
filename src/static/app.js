@@ -489,7 +489,7 @@ document.addEventListener("DOMContentLoaded", () => {
           text: shareText,
           url: shareUrl
         }).catch(err => {
-          console.log('Error sharing:', err);
+          console.log('Failed to share activity via Web Share API:', err);
         });
       } else {
         // Fallback to copying to clipboard
@@ -508,7 +508,10 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (platform === 'email') {
       const subject = `${activityName} - Mergington High School Activity`;
       const body = `${shareText}\n\nLearn more: ${shareUrl}`;
-      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const anchor = document.createElement('a');
+      anchor.href = mailtoLink;
+      anchor.click();
     }
   }
 
