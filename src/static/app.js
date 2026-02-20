@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const dayFilters = document.querySelectorAll(".day-filter");
   const timeFilters = document.querySelectorAll(".time-filter");
   const difficultyFilters = document.querySelectorAll(".difficulty-filter");
+  const groupbyFilters = document.querySelectorAll(".groupby-filter");
 
   // Authentication elements
   const loginButton = document.getElementById("login-button");
@@ -92,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentDay = "";
   let currentTimeRange = "";
   let currentDifficulty = "";
+  let currentGroupBy = "";
 
   // Authentication state
   let currentUser = null;
@@ -545,10 +547,69 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Display filtered activities
-    Object.entries(filteredActivities).forEach(([name, details]) => {
-      renderActivityCard(name, details);
-    });
+    // Group activities if a group-by option is selected
+    if (currentGroupBy) {
+      // Weekday order for day-based sorting
+      const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+      // Build groups
+      const groups = {};
+      Object.entries(filteredActivities).forEach(([name, details]) => {
+        let groupKeys = [];
+        if (currentGroupBy === "category") {
+          groupKeys = [getActivityType(name, details.description)];
+        } else if (currentGroupBy === "day") {
+          groupKeys = details.schedule_details
+            ? details.schedule_details.days
+            : ["Unscheduled"];
+        }
+        groupKeys.forEach((key) => {
+          if (!groups[key]) groups[key] = {};
+          groups[key][name] = details;
+        });
+      });
+
+      // Sort group keys: by weekday order for day grouping, alphabetically otherwise
+      const sortedGroupKeys = Object.keys(groups).sort((a, b) => {
+        if (currentGroupBy === "day") {
+          const ai = dayOrder.indexOf(a);
+          const bi = dayOrder.indexOf(b);
+          if (ai === -1 && bi === -1) return a.localeCompare(b);
+          if (ai === -1) return 1;
+          if (bi === -1) return -1;
+          return ai - bi;
+        }
+        return a.localeCompare(b);
+      });
+      sortedGroupKeys.forEach((groupKey) => {
+        // Group header
+        const groupHeader = document.createElement("div");
+        groupHeader.className = "activity-group-header";
+
+        let headerLabel = groupKey;
+        if (currentGroupBy === "category" && activityTypes[groupKey]) {
+          headerLabel = activityTypes[groupKey].label;
+          groupHeader.style.borderColor = activityTypes[groupKey].textColor;
+          groupHeader.style.color = activityTypes[groupKey].textColor;
+        }
+        groupHeader.textContent = headerLabel;
+        activitiesList.appendChild(groupHeader);
+
+        // Group cards container
+        const groupContainer = document.createElement("div");
+        groupContainer.className = "activity-group-cards";
+        activitiesList.appendChild(groupContainer);
+
+        Object.entries(groups[groupKey]).forEach(([name, details]) => {
+          renderActivityCard(name, details, groupContainer);
+        });
+      });
+    } else {
+      // Display filtered activities without grouping
+      Object.entries(filteredActivities).forEach(([name, details]) => {
+        renderActivityCard(name, details);
+      });
+    }
   }
 
   // Function to share an activity
@@ -595,7 +656,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Function to render a single activity card
-  function renderActivityCard(name, details) {
+  function renderActivityCard(name, details, container) {
     const activityCard = document.createElement("div");
     activityCard.className = "activity-card";
 
@@ -746,7 +807,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    activitiesList.appendChild(activityCard);
+    (container || activitiesList).appendChild(activityCard);
   }
 
   // Event listeners for search and filter
@@ -810,6 +871,16 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update current difficulty filter and fetch activities
       currentDifficulty = button.dataset.difficulty;
       fetchActivities();
+    });
+  });
+
+  // Add event listeners for group-by buttons
+  groupbyFilters.forEach((button) => {
+    button.addEventListener("click", () => {
+      groupbyFilters.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+      currentGroupBy = button.dataset.groupby;
+      displayFilteredActivities();
     });
   });
 
