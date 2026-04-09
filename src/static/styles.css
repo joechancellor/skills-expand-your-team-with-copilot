@@ -920,3 +920,178 @@ footer {
   gap: 15px;
   width: 100%;
 }
+
+/* View Toggle */
+.view-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.view-toggle-btn {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 6px 16px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-toggle-btn.active {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary-dark);
+}
+
+.view-toggle-btn:hover:not(.active) {
+  background-color: var(--primary-light);
+  color: white;
+  border-color: var(--primary-light);
+}
+
+/* Calendar Mode Override for #activities-list */
+#activities-list.calendar-mode {
+  display: block;
+}
+
+/* Calendar View Wrapper */
+.calendar-view {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--surface);
+}
+
+/* Calendar Header Row */
+.cal-header {
+  display: grid;
+  grid-template-columns: 50px repeat(7, 1fr);
+  border-bottom: 2px solid var(--primary);
+  background-color: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  min-width: 550px;
+}
+
+.cal-gutter-header {
+  /* Empty corner cell */
+}
+
+.cal-day-header {
+  text-align: center;
+  padding: 8px 4px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border-left: 1px solid var(--border);
+  color: var(--primary);
+}
+
+/* Calendar Body */
+.cal-body {
+  display: grid;
+  grid-template-columns: 50px repeat(7, 1fr);
+  min-width: 550px;
+}
+
+/* Time Gutter */
+.cal-time-gutter {
+  position: relative;
+  border-right: 1px solid var(--border);
+}
+
+.cal-time-label {
+  position: absolute;
+  right: 6px;
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transform: translateY(-50%);
+  line-height: 1;
+}
+
+/* Day Columns */
+.cal-day-col {
+  position: relative;
+  border-left: 1px solid var(--border);
+}
+
+.cal-hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--border-light);
+  pointer-events: none;
+}
+
+/* Calendar Activity Blocks */
+.cal-activity {
+  position: absolute;
+  border-radius: 3px;
+  padding: 3px 5px;
+  font-size: 0.7rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s, opacity 0.2s;
+  box-sizing: border-box;
+}
+
+.cal-activity:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
+  z-index: 10;
+  opacity: 0.92;
+}
+
+.cal-activity-name {
+  font-weight: bold;
+  font-size: 0.68rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.cal-activity-info {
+  font-size: 0.62rem;
+  opacity: 0.8;
+}
+
+/* Calendar Hover Tooltip (fixed position, follows cursor) */
+.calendar-tooltip {
+  position: fixed;
+  z-index: 10000;
+  background: rgba(30, 30, 30, 0.96);
+  color: #f0f0f0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  max-width: 240px;
+  min-width: 180px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  line-height: 1.5;
+}
+
+.cal-tt-name {
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 4px;
+}
+
+.cal-tt-desc {
+  color: #ccc;
+  margin-bottom: 5px;
+  font-size: 0.72rem;
+}
+
+.cal-tt-row {
+  font-size: 0.7rem;
+  color: #bbb;
+  margin-top: 2px;
+}
