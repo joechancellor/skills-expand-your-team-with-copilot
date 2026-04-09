@@ -917,6 +917,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Saturday",
     ];
     const PX_PER_MIN = 1.5;
+    const MIN_ACTIVITY_HEIGHT = 20; // minimum pixel height so very short activities remain clickable
 
     // Determine time range from visible activities
     let minTime = 6 * 60; // default 6:00 AM
@@ -1027,7 +1028,7 @@ document.addEventListener("DOMContentLoaded", () => {
       byDay[day].forEach((act) => {
         const { name, details, startMins, endMins, col, totalCols } = act;
         const top = (startMins - minTime) * PX_PER_MIN;
-        const height = Math.max((endMins - startMins) * PX_PER_MIN, 20);
+        const height = Math.max((endMins - startMins) * PX_PER_MIN, MIN_ACTIVITY_HEIGHT);
         const widthPct = 100 / totalCols;
         const leftPct = (col / totalCols) * 100;
 
