@@ -1,0 +1,108 @@
+name: Manage Teacher Account
+description: Request to add, update, or remove a teacher account
+title: "[Teacher Account]: "
+labels: ["administration", "teacher"]
+assignees:
+  - copilot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Manage a Teacher Account
+        Use this form to request changes to teacher login accounts for the Mergington High School Activities website.
+        
+        ⚠️ **Note:** Only the principal or authorized staff should submit this request.
+
+  - type: dropdown
+    id: action
+    attributes:
+      label: What do you need to do?
+      description: Choose the type of account change needed
+      options:
+        - Add a new teacher account
+        - Remove a teacher account
+        - Update teacher display name
+        - Reset teacher password
+    validations:
+      required: true
+
+  - type: input
+    id: username
+    attributes:
+      label: Teacher Username
+      description: The login username for this teacher account (first initial + last name, e.g., jsmith)
+      placeholder: "e.g., mrodriguez, jsmith"
+    validations:
+      required: true
+
+  - type: input
+    id: display-name
+    attributes:
+      label: Teacher Display Name
+      description: The name shown on the website (e.g., Ms. Rodriguez, Mr. Smith)
+      placeholder: "e.g., Ms. Rodriguez, Mr. Smith"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: Account Role
+      description: What level of access should this account have?
+      options:
+        - teacher
+        - admin
+    validations:
+      required: false
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for Change
+      description: Why is this change needed?
+      placeholder: "New teacher joining the school, teacher has left, name change, etc."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      description: Please confirm this request is authorized
+      options:
+        - label: I am authorized to request account changes (principal or administrator)
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 📋 Implementation Notes for Copilot Agent
+        
+        **Clear Problem:** Add, update, or remove a teacher account in the database so the teacher can (or can no longer) log in to the website.
+        
+        **Acceptance Criteria:**
+        - For "Add": New account is created with provided username and display name; teacher can log in with the temporary password
+        - For "Remove": Account is deleted; teacher can no longer log in; no errors occur for activities the teacher managed
+        - For "Update display name": Teacher's display name is updated and shown correctly on the website
+        - For "Reset password": Teacher's password is changed to a secure temporary value; teacher is informed to change it on first login
+        - No other accounts are affected by the change
+        
+        **Implementation Hints:**
+        - Teacher accounts are stored in `teachers_collection` in `src/backend/database.py`
+        - Accounts have the fields: `username` (_id), `display_name`, `password` (hashed), `role`
+        - Use the `hash_password()` function from `src/backend/database.py` when setting a password
+        - For new accounts or password resets, generate a random temporary password using Python's `secrets` module (e.g., `secrets.token_urlsafe(12)`) and note it securely in the PR description so the principal can share it with the teacher directly
+        - Do NOT hardcode passwords in any documentation or comments — describe the temporary password only in the PR
+        - Removing an account does not affect activity or participant data
+        
+        **Technical Context:**
+        - Database: MongoDB (`teachers_collection`)
+        - Passwords are hashed using Argon2 via the `hash_password()` function in `src/backend/database.py`
+        - The auth router in `src/backend/routers/auth.py` handles login validation
+        - Roles: `teacher` (standard access), `admin` (elevated access for the principal)
+        
+        **Limitations:**
+        - Only make the requested account change; do not modify activity or student data
+        - Always hash passwords — never store plain text
+        - Keep the list of teacher accounts small and only add real school staff
